@@ -1,0 +1,5 @@
+---
+- name: Setup Master
+  hosts: master.openshift.org
+  roles:
+    - dns

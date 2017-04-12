@@ -1,0 +1,10 @@
+---
+dns_domain:    'openshift.edu'
+dns_network:   '172.24.1'
+dns_listen_ip: '172.24.1.160'
+
+dns_hosts:
+  - name: 'master'
+    ip: '172.24.1.160'
+  - nasme: 'node01'
+    ip: '172.24.1.161'
