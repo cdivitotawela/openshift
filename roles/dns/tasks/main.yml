@@ -5,6 +5,47 @@
 
 - name: Configure named.conf
   template:
+    owner: named
+    group: named
     src: named.conf.j2
     dest: /etc/named.conf
 
+- name: Creating log folder
+  file:
+    path: /var/log/named
+    state: directory
+    owner: named
+    group: named    
+
+- name: Creating zones folder
+  file:
+    path: /etc/named/zones
+    state: directory
+    owner: named
+    group: named
+
+- name: Zone configuration file
+  template:
+    owner: named
+    group: named
+    src: named.conf.local.j2
+    dest: /etc/named/named.conf.local
+
+- name: Configure forward zone file
+  template:
+    owner: named
+    group: named
+    src: db.forward.zone.j2
+    dest: /etc/named/zones/db.{{ dns_domain }}
+
+- name: Configure reverse zone file
+  template:
+    owner: named
+    group: named
+    src: db.reverse.zone.j2
+    dest: /etc/named/zones/db.{{ dns_network }}
+
+- name: Start DNS server
+  service:
+    name: named
+    state: started

@@ -1,0 +1,9 @@
+zone "{{ dns_domain }}" {
+  type master;
+  file "/etc/named/zones/db.{{ dns_domain }}";
+};
+
+zone "{{ dns_zone }}.in-addr.arpa" {
+  type master;
+  file "/etc/named/zones/db.{{ dns_network }}";
+};

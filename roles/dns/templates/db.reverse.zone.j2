@@ -1,0 +1,14 @@
+$TTL    604800
+@	IN	SOA	{{ dns_domain }}. admin.{{ dns_domain }}. (
+                  3
+             604800
+              86400
+            2419200
+             604800)
+
+	IN 	NS	ns1.{{ dns_domain }}.
+
+{{ dns_ns1_id }}	IN	PTR     ns1.{{ dns_domain }}.
+{% for node in dns_hosts %}
+{{ node.id }}     IN      PTR     {{ node.name }}.{{ dns_domain }}.
+{% endfor %}
