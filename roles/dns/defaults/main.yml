@@ -5,8 +5,13 @@ dns_zone:      '1.24.172'
 dns_listen_ip: '172.24.1.160'
 dns_ns1_id:    '160'
 
+dns_wildcard_name: '*.cloudapps.openshift.edu'
+dns_wildcard_ip: '172.24.1.170'
+
 dns_hosts:
   - name: 'master'
     id: '160'
   - name: 'node01'
     id: '161'
+  - name: 'node02'
+    id: '162'

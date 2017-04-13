@@ -49,3 +49,4 @@
   service:
     name: named
     state: started
+    enabled: yes
