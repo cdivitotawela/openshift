@@ -1,0 +1,18 @@
+[dns-server]
+admin.ose.edu   ansible_host=192.168.56.159 ansible_user=root
+
+[master]
+master.ose.edu ansible_host=192.168.56.160 ansible_user=root
+
+[nodes]
+node01.ose.edu  ansible_host=192.168.56.161 ansible_user=root
+node02.ose.edu  ansible_host=192.168.56.162 ansible_user=root
+node03.ose.edu  ansible_host=192.168.56.163 ansible_user=root
+
+[all:children]
+master
+nodes
+
+[dns-clients:children]
+master
+nodes

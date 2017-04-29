@@ -1,0 +1,6 @@
+---
+- name: Setup DNS server
+  hosts: admin.ose.edu
+  roles:
+    - role: dns
+

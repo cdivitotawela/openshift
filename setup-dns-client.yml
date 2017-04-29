@@ -1,0 +1,6 @@
+---
+- name: Setup DNS client
+  hosts: dns-clients
+  roles:
+    - role: dns
+

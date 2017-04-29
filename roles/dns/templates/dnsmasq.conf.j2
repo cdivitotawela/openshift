@@ -1,0 +1,9 @@
+# Configure the domain and DNS server to forward queries
+server=/{{ dns_domain }}/{{ dns_network }}.{{ dns_ns1_id }}
+
+# Configure the domain to use
+domain={{ dns_domain }}
+
+# Configuration directory
+conf-dir=/etc/dnsmasq.d
+

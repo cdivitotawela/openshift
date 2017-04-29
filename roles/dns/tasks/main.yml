@@ -1,7 +1,9 @@
 ---
+
 - name: Install packages
   yum:
     name: bind
+  tags: server
 
 - name: Configure named.conf
   template:
@@ -9,13 +11,17 @@
     group: named
     src: named.conf.j2
     dest: /etc/named.conf
+  notify:
+    - restart named
+  tags: server
 
 - name: Creating log folder
   file:
     path: /var/log/named
     state: directory
     owner: named
-    group: named    
+    group: named
+  tags: server
 
 - name: Creating zones folder
   file:
@@ -23,6 +29,7 @@
     state: directory
     owner: named
     group: named
+  tags: server
 
 - name: Zone configuration file
   template:
@@ -30,6 +37,9 @@
     group: named
     src: named.conf.local.j2
     dest: /etc/named/named.conf.local
+  notify:
+    - restart named
+  tags: server
 
 - name: Configure forward zone file
   template:
@@ -37,6 +47,9 @@
     group: named
     src: db.forward.zone.j2
     dest: /etc/named/zones/db.{{ dns_domain }}
+  notify:
+    - restart named
+  tags: server
 
 - name: Configure reverse zone file
   template:
@@ -44,9 +57,37 @@
     group: named
     src: db.reverse.zone.j2
     dest: /etc/named/zones/db.{{ dns_network }}
+  notify:
+    - restart named
+  tags: server
 
 - name: Start DNS server
   service:
     name: named
     state: started
     enabled: yes
+  tags: server
+
+
+
+- name: Install dnsmasq
+  yum:
+    name: dnsmasq
+  tags: client
+
+- name: Configure dnsmasq
+  template:
+    src: dnsmasq.conf.j2
+    dest: /etc/dnsmasq.conf
+  notify:
+    - restart dnsmasq
+  tags: client
+
+- name: Restart dnsmasq
+  service:
+    name: dnsmasq
+    state: started
+    enabled: yes
+  tags: client
+
+
